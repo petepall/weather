@@ -110,3 +110,5 @@ const weatherCodes: TWeatherCode = [
 export const weatherCodesArray = Object.entries(weatherCodes[0]).map(
 	([key, value]) => ({ [key]: value }),
 ) as TWeatherCode;
+
+// creazte an array of weather codes and their descriptions

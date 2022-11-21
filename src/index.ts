@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { Weather } from './ICurrentWeather.js';
-import { TWeatherCode, weatherCodesArray } from './weatherCodes.js';
+import { weatherCodesArray } from './weatherCodes.js';
 
 const request: AxiosInstance = axios.create({
 	baseURL: 'https://api.open-meteo.com',
@@ -12,9 +12,8 @@ const response: AxiosResponse = await request.get(
 );
 
 const weather: Weather = response.data;
-const weatherCode = weatherCodesArray.find(
-	(code) => code[weather.current_weather.weathercode],
-) as TWeatherCode[0];
+const weatherCode: { [key: string]: string } | undefined =
+	weatherCodesArray.find((code) => code[weather.current_weather.weathercode]);
 
 if (weatherCode) {
 	weather.current_weather.weathercode =
