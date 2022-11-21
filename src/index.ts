@@ -22,4 +22,4 @@ if (weatherCode) {
 	console.log('Weather code not found');
 }
 
-console.log(weather);
+console.table(weather);
