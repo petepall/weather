@@ -16,8 +16,9 @@ const weatherCode: { [key: string]: string } | undefined =
 	weatherCodesArray.find((code) => code[weather.current_weather.weathercode]);
 
 if (weatherCode) {
-	weather.current_weather.weathercode =
-		weatherCode[weather.current_weather.weathercode];
+	weather.current_weather.weathercode += ` - ${
+		weatherCode[weather.current_weather.weathercode]
+	}`;
 } else {
 	console.log('Weather code not found');
 }
