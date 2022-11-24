@@ -24,4 +24,16 @@ if (weatherCode) {
 	console.log('Weather code not found');
 }
 
+const UTCdate = weather.current_weather.time + 'Z';
+const localDateTime = new Date(UTCdate);
+const shortTimezone = localDateTime
+	.toLocaleString(undefined, { timeZoneName: 'short' })
+	.split(' ')[2];
+
+const fullTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+weather.timezone = fullTimezone;
+weather.timezone_abbreviation = shortTimezone;
+weather.current_weather.time = localDateTime.toLocaleString();
+
 console.log(weather);
