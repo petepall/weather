@@ -27,7 +27,7 @@ if (weatherCode) {
 const UTCdate = weather.current_weather.time + 'Z';
 const localDateTime = new Date(UTCdate);
 const shortTimezone = localDateTime
-	.toLocaleString(undefined, { timeZoneName: 'short' })
+	.toLocaleString('nl-BE', { timeZoneName: 'short' })
 	.split(' ')[2];
 
 const fullTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
