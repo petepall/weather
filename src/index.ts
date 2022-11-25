@@ -7,11 +7,11 @@ const request: AxiosInstance = axios.create({
 	timeout: 1000,
 });
 
-const response: AxiosResponse = await request.get(
+const weatherResponse: AxiosResponse = await request.get(
 	'v1/forecast?latitude=50.82&longitude=5.19&current_weather=true',
 );
 
-const weather: Weather = response.data;
+const weather: Weather = weatherResponse.data;
 
 const weatherCode: { [key: string]: string } | undefined =
 	weatherCodesArray.find((code) => code[weather.current_weather.weathercode]);
