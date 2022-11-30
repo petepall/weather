@@ -2,12 +2,12 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { Weather } from './ICurrentWeather.js';
 import { weatherCodesArray } from './weatherCodes.js';
 
-const request: AxiosInstance = axios.create({
+const weatherRequest: AxiosInstance = axios.create({
 	baseURL: 'https://api.open-meteo.com',
 	timeout: 1000,
 });
 
-const weatherResponse: AxiosResponse = await request.get(
+const weatherResponse: AxiosResponse = await weatherRequest.get(
 	'v1/forecast?latitude=50.82&longitude=5.19&current_weather=true',
 );
 
