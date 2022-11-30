@@ -6,8 +6,8 @@ import { weatherCodesArray } from './weatherCodes.js';
 
 dotenv.config();
 
-const latitude = 50.82;
-const longitude = 5.19;
+const latitude = 50.80835;
+const longitude = 5.19168;
 
 const weatherRequest: AxiosInstance = axios.create({
 	baseURL: 'https://api.open-meteo.com',
