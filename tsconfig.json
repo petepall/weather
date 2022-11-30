@@ -7,8 +7,8 @@
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"lib": ["ES2022"],
-		"module": "ES2022",
-		"moduleResolution": "Node",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"sourceMap": true,
 		"noImplicitAny": true,
 		// "typeRoots": [
