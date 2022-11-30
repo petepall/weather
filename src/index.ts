@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
-import { Weather } from './ICurrentWeather.js';
-import { Location } from './ILocationData.js';
+import { IWeather } from './ICurrentWeather.js';
+import { ILocation } from './ILocationData.js';
 import { weatherCodesArray } from './weatherCodes.js';
 
 dotenv.config();
@@ -14,11 +14,11 @@ const weatherRequest: AxiosInstance = axios.create({
 	timeout: 1000,
 });
 
-const weatherResponse: AxiosResponse<Weather> = await weatherRequest.get(
+const weatherResponse: AxiosResponse<IWeather> = await weatherRequest.get(
 	`v1/forecast?latitude=${latitude}2&longitude=${longitude}&current_weather=true`,
 );
 
-const weather: Weather = weatherResponse.data;
+const weather: IWeather = weatherResponse.data;
 
 const weatherCode: { [key: string]: string } | undefined =
 	weatherCodesArray.find((code) => code[weather.current_weather.weathercode]);
@@ -54,10 +54,10 @@ const locationRequest: AxiosInstance = axios.create({
 	},
 });
 
-const locationResponse: AxiosResponse<Location> = await locationRequest.get(
+const locationResponse: AxiosResponse<ILocation> = await locationRequest.get(
 	`/v1/locations/by-position/${latitude}/${longitude}?language=en`,
 );
 
-const location: Location = locationResponse.data;
+const location: ILocation = locationResponse.data;
 
 console.dir(location, { depth: null });

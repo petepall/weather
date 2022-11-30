@@ -1,4 +1,4 @@
-export interface Weather {
+export interface IWeather {
 	latitude: number;
 	longitude: number;
 	generationtime_ms: number;
@@ -6,10 +6,10 @@ export interface Weather {
 	timezone: string;
 	timezone_abbreviation: string;
 	elevation: number;
-	current_weather: CurrentWeather;
+	current_weather: ICurrentWeather;
 }
 
-export interface CurrentWeather {
+export interface ICurrentWeather {
 	temperature: number;
 	windspeed: number;
 	winddirection: number;
