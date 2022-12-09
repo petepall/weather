@@ -6,17 +6,51 @@ import { weatherCodesArray } from './weatherCodes.js';
 
 dotenv.config();
 
+async function getCurrentWeather(
+	latitude: number,
+	longitude: number,
+): Promise<AxiosResponse<IWeather>> {
+	const weatherRequest: AxiosInstance = axios.create({
+		baseURL: 'https://api.open-meteo.com',
+		timeout: 1000,
+	});
+
+	return await weatherRequest.get(
+		`v1/forecast?latitude=${latitude}2&longitude=${longitude}&current_weather=true`,
+	);
+}
+
+async function getCityName(
+	latitude: number,
+	longitude: number,
+): Promise<AxiosResponse<ILocation>> {
+	const locationRequest: AxiosInstance = axios.create({
+		baseURL: 'https://api.myptv.com/geocoding',
+		timeout: 1000,
+		headers: {
+			apiKey: process.env.API_KEY,
+			'Content-Type': 'application/json',
+		},
+	});
+
+	return await locationRequest.get(
+		`/v1/locations/by-position/${latitude}/${longitude}?language=en`,
+	);
+}
+
 const latitude = 50.80835;
 const longitude = 5.19168;
 
-const weatherRequest: AxiosInstance = axios.create({
-	baseURL: 'https://api.open-meteo.com',
-	timeout: 1000,
-});
-
-const weatherResponse: AxiosResponse<IWeather> = await weatherRequest.get(
-	`v1/forecast?latitude=${latitude}2&longitude=${longitude}&current_weather=true`,
+const weatherResponse: AxiosResponse<IWeather> = await getCurrentWeather(
+	latitude,
+	longitude,
 );
+const locationResponse: AxiosResponse<ILocation> = await getCityName(
+	latitude,
+	longitude,
+);
+
+const location: ILocation = locationResponse.data;
 
 const weather: IWeather = weatherResponse.data;
 
@@ -44,20 +78,5 @@ weather.timezone_abbreviation = shortTimezone;
 weather.current_weather.time = localDateTime.toLocaleString();
 
 console.log(weather);
-
-const locationRequest: AxiosInstance = axios.create({
-	baseURL: 'https://api.myptv.com/geocoding',
-	timeout: 1000,
-	headers: {
-		apiKey: process.env.API_KEY,
-		'Content-Type': 'application/json',
-	},
-});
-
-const locationResponse: AxiosResponse<ILocation> = await locationRequest.get(
-	`/v1/locations/by-position/${latitude}/${longitude}?language=en`,
-);
-
-const location: ILocation = locationResponse.data;
 
 console.dir(location, { depth: null });
